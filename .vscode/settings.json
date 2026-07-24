@@ -1,6 +1,9 @@
 {
     "python-envs.defaultEnvManager": "ms-python.python:system",
     "cSpell.words": [
-        "dotenv"
+        "dotenv",
+        "pypi",
+        "sqlalchemy",
+        "structlog"
     ]
 }
