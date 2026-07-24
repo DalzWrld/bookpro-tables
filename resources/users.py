@@ -14,6 +14,15 @@ class Users(Resource):
 
         return users_schema.dump(User.query.all()), 200
 
+    def post(self):
+        data = request.get_json()
+        user = User(**data)
+        db.session.add(user)
+        db.session.commit()
+        
+        log.info("create_user", user_id=user.id)
+        return user_schema.dump(user), 201
+
 
 class UserByID(Resource):
     def get(self, user_id):
@@ -23,3 +32,23 @@ class UserByID(Resource):
         
         log.info("get_user_by_id", user_id=user_id)
         return user_schema.dump(user), 200
+
+    def delete(self, id):
+        user = User.query.filter_by(id=id).first()
+
+        if user:
+            db.session.delete(user)
+            db.session.commit()
+
+            response = {
+                "message": "User deleted successfully"
+            }
+
+            return make_response(response, 200)
+        else:
+            response = {
+                "status": 404,
+                "message": "User not found"
+            }
+            
+            return make_response(response, 404)
