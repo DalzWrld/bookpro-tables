@@ -77,3 +77,6 @@ class ReviewSchema(Schema):
     comment = fields.Str()
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
+
+    patient = fields.Nested("PatientSchema", exclude=("appointments", "reviews"))
+    doctor = fields.Nested("DoctorSchema", exclude=("appointments", "reviews"))
