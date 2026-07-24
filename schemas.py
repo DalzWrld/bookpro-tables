@@ -44,3 +44,21 @@ class HospitalSchema(Schema):
 
 class AppointmentSchema(Schema):
     id = fields.Int(dump_only=True)
+    patient_id = fields.Int(required=True)
+    doctor_id = fields.Int(required=True)
+    hospital_id = fields.Int(required=True)
+    appointment_date = fields.DateTime(required=True)
+    status = fields.Str()
+    notes = fields.Str()
+    created_at = fields.DateTime(dump_only=True)
+    updated_at = fields.DateTime(dump_only=True)
+
+class ReviewSchema(Schema):
+    id = fields.Int(dump_only=True)
+    appointment_id = fields.Int(required=True)
+    patient_id = fields.Int(required=True)
+    doctor_id = fields.Int(required=True)
+    rating = fields.Float(required=True)
+    comment = fields.Str()
+    created_at = fields.DateTime(dump_only=True)
+    updated_at = fields.DateTime(dump_only=True)
