@@ -41,3 +41,6 @@ class HospitalSchema(Schema):
     email = fields.Email(required=True, unique=True)
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
+
+class AppointmentSchema(Schema):
+    id = fields.Int(dump_only=True)
