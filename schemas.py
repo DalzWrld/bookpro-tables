@@ -11,6 +11,9 @@ class UserSchema(Schema):
     doctor = fields.Nested("DoctorSchema", excludes=("user",))
     patient = fields.Nested("PatientSchema", excludes=("user",))
 
+user_schema = UserSchema()
+user_schemas = UserSchema(many=True)
+
 class DoctorSchema(Schema):
     id = fields.Int(dump_only=True)
     user_id = fields.Int(required=True)
