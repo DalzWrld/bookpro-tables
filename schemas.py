@@ -30,6 +30,9 @@ class DoctorSchema(Schema):
     appointments = fields.Nested("AppointmentSchema", many=True, exclude=("doctor",))
     reviews = fields.Nested("ReviewSchema", many=True, exclude=("doctor",))
 
+doctor_schema = DoctorSchema()
+doctor_schemas = DoctorSchema(many=True)
+
 class PatientSchema(Schema):
     id = fields.Int(dump_only=True)
     user_id = fields.Int(required=True)
@@ -45,6 +48,9 @@ class PatientSchema(Schema):
     appointments = fields.Nested("AppointmentSchema", many=True, exclude=("patient",))
     reviews = fields.Nested("ReviewSchema", many=True, exclude=("patient",))
 
+patient_schema = PatientSchema()
+patient_schemas = PatientSchema(many=True)
+
 class HospitalSchema(Schema):
     id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
@@ -55,6 +61,9 @@ class HospitalSchema(Schema):
     updated_at = fields.DateTime(dump_only=True)
 
     appointments = fields.Nested("AppointmentSchema", many=True, exclude=("hospital",))
+
+hospital_schema = HospitalSchema()
+hospital_schemas = HospitalSchema(many=True)
 
 class AppointmentSchema(Schema):
     id = fields.Int(dump_only=True)
@@ -71,6 +80,9 @@ class AppointmentSchema(Schema):
     doctor = fields.Nested("DoctorSchema", exclude=("appointments", "reviews"))
     hospital = fields.Nested("HospitalSchema", exclude=("appointments",))
 
+appointment_schema = AppointmentSchema()
+appointment_schemas = AppointmentSchema(many=True)
+
 class ReviewSchema(Schema):
     id = fields.Int(dump_only=True)
     appointment_id = fields.Int(required=True)
@@ -83,3 +95,6 @@ class ReviewSchema(Schema):
 
     patient = fields.Nested("PatientSchema", exclude=("appointments", "reviews"))
     doctor = fields.Nested("DoctorSchema", exclude=("appointments", "reviews"))
+
+review_schema = ReviewSchema()
+review_schemas = ReviewSchema(many=True)
