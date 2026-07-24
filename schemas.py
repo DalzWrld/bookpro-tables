@@ -51,6 +51,8 @@ class HospitalSchema(Schema):
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
 
+    appointments = fields.Nested("AppointmentSchema", many=True, exclude=("hospital",))
+
 class AppointmentSchema(Schema):
     id = fields.Int(dump_only=True)
     patient_id = fields.Int(required=True)
@@ -61,6 +63,10 @@ class AppointmentSchema(Schema):
     notes = fields.Str()
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
+
+    patient = fields.Nested("PatientSchema", exclude=("appointments", "reviews"))
+    doctor = fields.Nested("DoctorSchema", exclude=("appointments", "reviews"))
+    hospital = fields.Nested("HospitalSchema", exclude=("appointments",))
 
 class ReviewSchema(Schema):
     id = fields.Int(dump_only=True)
