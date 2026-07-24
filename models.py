@@ -24,8 +24,8 @@ class User(db.Model):
     role = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     phone = db.Column(db.String, nullable=False, unique=True)
-    created_at = db.Column(db.DateTime, default=datetime.now())
-    updated_at = db.Column(db.DateTime, default=datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    updated_at = db.Column(db.DateTime, default=datetime.now)
 
     doctor = db.relationship('Doctor', uselist=False, back_populates='user')
     patient = db.relationship('Patient', uselist=False, back_populates='user')
@@ -45,8 +45,8 @@ class Doctor(db.Model):
     available = db.Column(db.Boolean, default=True, nullable=False)
     rating = db.Column(db.Float, nullable=True)
     phone = db.Column(db.String(10), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now())
-    updated_at = db.Column(db.DateTime, default=datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    updated_at = db.Column(db.DateTime, default=datetime.now)
 
     appointments = db.relationship('Appointment', back_populates='doctor')
     reviews = db.relationship('Review', back_populates='doctor')
@@ -66,8 +66,8 @@ class Patient(db.Model):
     gender = db.Column(db.String(20), nullable=False)
     address = db.Column(db.String(200), nullable=False)
     phone = db.Column(db.String, nullable=False, unique=True)
-    created_at = db.Column(db.DateTime, default=datetime.now())
-    updated_at = db.Column(db.DateTime, default=datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    updated_at = db.Column(db.DateTime, default=datetime.now)
 
     appointments = db.relationship('Appointment', back_populates='patient')
 
@@ -84,8 +84,8 @@ class Hospital(db.Model):
     phone = db.Column(db.String, nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     website = db.Column(db.String(200), nullable=True)
-    created_at = db.Column(db.DateTime, default=datetime.now())
-    updated_at = db.Column(db.DateTime, default=datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    updated_at = db.Column(db.DateTime, default=datetime.now)
 
     appointments = db.relationship('Appointment', back_populates='hospital')
 
@@ -104,8 +104,8 @@ class Appointment(db.Model):
     appointment_time = db.Column(db.Time, nullable=False)
     status = db.Column(db.String(20), nullable=False, default='scheduled')
     notes = db.Column(db.String(500), nullable=True)
-    created_at = db.Column(db.DateTime, default=datetime.now())
-    updated_at = db.Column(db.DateTime, default=datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    updated_at = db.Column(db.DateTime, default=datetime.now)
 
     patient = db.relationship('Patient', back_populates='appointments')
     doctor = db.relationship('Doctor', back_populates='appointments')
@@ -124,8 +124,8 @@ class Review(db.Model):
     doctor_id = db.Column(db.Integer, db.ForeignKey('doctors.id'), nullable=False)
     rating = db.Column(db.Float, nullable=False)
     comment = db.Column(db.String(500), nullable=True)
-    created_at = db.Column(db.DateTime, default=datetime.now())
-    updated_at = db.Column(db.DateTime, default=datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    updated_at = db.Column(db.DateTime, default=datetime.now)
 
     patient = db.relationship('Patient', back_populates='reviews')
     doctor = db.relationship('Doctor', back_populates='reviews')
