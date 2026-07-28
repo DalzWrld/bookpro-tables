@@ -4,7 +4,7 @@ from marshmallow import ValidationError
 
 from extensions import log
 from models import User, db
-from schemas import user_schema, users_schema, users_list_schema
+from schemas import user_schema, users_list_schema
 
 
 class Users(Resource):

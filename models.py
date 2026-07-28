@@ -3,6 +3,7 @@ from datetime import datetime
 from flask_bcrypt import check_password_hash, generate_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import CheckConstraint, MetaData
+from marshmallow import validates
 
 naming_convention = {
     "ix": 'ix_%(column_0_label)s',
@@ -42,8 +43,12 @@ class User(db.Model):
     def check_password(self, user_pass):
         return check_password_hash(self.password, user_pass)
 
-    def __repr__(self):
-        return f'<User {self.id}, {self.first_name} {self.last_name}, {self.email}, {self.phone}>'
+    @validates("password")
+    def validate_password(self, key, password):
+        if password and len(password) < 8:
+            raise ValueError("Password must be at least 8 characters.")
+        return password
+
 
 class Doctor(db.Model):
     __tablename__ = "doctors"
@@ -72,9 +77,6 @@ class Doctor(db.Model):
     appointments = db.relationship('Appointment', back_populates='doctor')
     reviews = db.relationship('Review', back_populates='doctor')
 
-    def __repr__(self):
-        return f'<Doctor {self.id}, {self.first_name} {self.last_name}, {self.specialty}, {self.bio}, {self.available}, {self.rating}, {self.phone}>'
-
 
 class Patient(db.Model):
     __tablename__ = "patients"
@@ -99,9 +101,6 @@ class Patient(db.Model):
     appointments = db.relationship('Appointment', back_populates='patient')
     reviews = db.relationship('Review', back_populates='patient')
 
-    def __repr__(self):
-        return f'<Patient {self.id}, {self.first_name} {self.last_name}, {self.dob}, {self.gender}, {self.address}, {self.phone}>'
-
 
 class Hospital(db.Model):
     __tablename__ = "hospitals"
@@ -120,9 +119,6 @@ class Hospital(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     appointments = db.relationship('Appointment', back_populates='hospital')
-
-    def __repr__(self):
-        return f'<Hospital {self.id}, {self.name}, {self.address}, {self.phone}, {self.email}, {self.website}>'
 
 
 class Appointment(db.Model):
@@ -148,9 +144,6 @@ class Appointment(db.Model):
     hospital = db.relationship('Hospital', back_populates='appointments')
     reviews = db.relationship('Review', back_populates='appointment')
 
-    def __repr__(self):
-        return f'<Appointment {self.id}, {self.patient_id}, {self.doctor_id}, {self.hospital_id}, {self.appointment_date}, {self.status}, {self.notes}>'
-
 
 class Review(db.Model):
     __tablename__ = "reviews"
@@ -171,6 +164,3 @@ class Review(db.Model):
     patient = db.relationship('Patient', back_populates='reviews')
     doctor = db.relationship('Doctor', back_populates='reviews')
     appointment = db.relationship('Appointment', back_populates='reviews')
-
-    def __repr__(self):
-        return f'<Review {self.id}, {self.patient_id}, {self.doctor_id}, {self.appointment_id}, {self.rating}, {self.comment}>'

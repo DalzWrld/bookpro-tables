@@ -4,7 +4,7 @@ from marshmallow import ValidationError
 
 from extensions import log
 from models import Patient, db
-from schemas import patient_schema, patients_schema, patients_list_schema
+from schemas import patient_schema, patients_list_schema
 
 
 class Patients(Resource):

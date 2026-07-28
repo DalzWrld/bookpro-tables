@@ -4,7 +4,7 @@ from marshmallow import ValidationError
 
 from extensions import log
 from models import Review, db
-from schemas import review_schema, reviews_schema, reviews_list_schema
+from schemas import review_schema, reviews_list_schema
 
 
 class Reviews(Resource):
