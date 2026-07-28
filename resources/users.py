@@ -1,7 +1,7 @@
 from flask import make_response, request
 from flask_restful import Resource
+from marshmallow import ValidationError
 
-# from marshmallow import ValidationError
 from extensions import log
 from models import User, db
 from schemas import user_schema, users_schema
@@ -12,16 +12,41 @@ class Users(Resource):
         users = User.query.all()
         log.info("get_all_users", request_data=users_schema.dump(users))
 
-        return users_schema.dump(User.query.all()), 200
+        return make_response(users_schema.dump(users), 200)
 
     def post(self):
-        data = request.get_json()
-        user = User(**data)
-        db.session.add(user)
-        db.session.commit()
+        try:
+            data = user_schema.load(request.get_json())
+            user = User(**data)
+
+            db.session.add(user)
+            db.session.commit()
+
+            return make_response(user_schema.dump(user), 201)
         
-        log.info("create_user", id=id)
-        return user_schema.dump(user), 201
+        except ValidationError as err:
+            log.error("validation_error", errors=err.messages)
+
+            response = {
+                "status": 400,
+                "message": "Validation error(s) occurred",
+                "errors": {**err.messages},
+            }
+
+            return make_response(response, 400)
+
+        except ValueError as ve:
+            db.session.rollback()
+
+            log.error("value_error", error=str(ve))
+
+            response = {
+                "status": 400,
+                "message": "Wrong value(s) entered.",
+            }
+
+            return make_response(response, 400)
+
 
 
 class UserByID(Resource):

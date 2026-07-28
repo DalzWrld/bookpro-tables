@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a3a5ec960202d5c2b1f5152053381004bb1d20c2a3d45cf926f892d48091f42a"
+            "sha256": "101bd7f4be281601b7bc542f055a9a0a4f005650bb67c3d24ceaff192aa4ca4d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -23,6 +23,13 @@
             ],
             "markers": "python_version >= '3.10'",
             "version": "==1.18.5"
+        },
+        "aniso8601": {
+            "hashes": [
+                "sha256:25488f8663dd1528ae1f54f94ac1ea51ae25b4d531539b8bc707fed184d16845",
+                "sha256:eb19717fd4e0db6de1aab06f12450ab92144246b257423fe020af5748c0cb89e"
+            ],
+            "version": "==10.0.1"
         },
         "blinker": {
             "hashes": [
@@ -57,6 +64,14 @@
             "index": "pypi",
             "markers": "python_version >= '3.6'",
             "version": "==4.1.0"
+        },
+        "flask-restful": {
+            "hashes": [
+                "sha256:1cf93c535172f112e080b0d4503a8d15f93a48c88bdd36dd87269bdaf405051b",
+                "sha256:fe4af2ef0027df8f9b4f797aba20c5566801b6ade995ac63b588abf1a59cec37"
+            ],
+            "index": "pypi",
+            "version": "==0.3.10"
         },
         "flask-sqlalchemy": {
             "hashes": [
@@ -288,6 +303,21 @@
             "index": "pypi",
             "markers": "python_version >= '3.10'",
             "version": "==1.2.2"
+        },
+        "pytz": {
+            "hashes": [
+                "sha256:2211d3fcf9a797d3405cac96ac7f61d80e6a644f72a3309607282fe8a2010c5d",
+                "sha256:dd95840dd199baea12d9cc096a1d452caa6596a1c1e4b5f3dbd1541855d5e815"
+            ],
+            "version": "==2026.3.post1"
+        },
+        "six": {
+            "hashes": [
+                "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274",
+                "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81"
+            ],
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
+            "version": "==1.17.0"
         },
         "sqlalchemy": {
             "hashes": [

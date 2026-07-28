@@ -10,6 +10,7 @@ python-dotenv = "*"
 structlog = "*"
 marshmallow = "*"
 flask = "*"
+flask-restful = "*"
 
 [dev-packages]
 
