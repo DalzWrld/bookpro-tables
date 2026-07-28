@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, validate
 
 
 class UserSchema(Schema):
@@ -19,11 +19,11 @@ class DoctorSchema(Schema):
     user_id = fields.Int(required=True)
     first_name = fields.Str(required=True)
     last_name = fields.Str(required=True)
-    specialty = fields.Str()
-    dob = fields.Date()
-    gender = fields.Str()
+    specialty = fields.Str(validate=validate.Length(min=1))
     bio = fields.Str()
+    available = fields.Bool()
     phone = fields.Str(unique=True)
+    years_practice = fields.Int(validate=validate.Range(min=0, max=100), )
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
 
@@ -57,6 +57,7 @@ class HospitalSchema(Schema):
     address = fields.Str()
     phone = fields.Str(unique=True)
     email = fields.Email(required=True, unique=True)
+    website = fields.URL()
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
 

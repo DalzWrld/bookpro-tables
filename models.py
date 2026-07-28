@@ -52,6 +52,7 @@ class Doctor(db.Model):
     available = db.Column(db.Boolean, default=True, nullable=False)
     rating = db.Column(db.Float, nullable=True)
     phone = db.Column(db.String(10), nullable=False)
+    years_practice = db.Column(db.Integer, nullable=False, default=0)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now)
 

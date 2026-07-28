@@ -28,9 +28,9 @@ with app.app_context():
     print(f"Seeded {len(users)} users")
 
     doctors = [
-        Doctor(user_id=user_ids[1], first_name="Jane", last_name="Smith", specialty="Cardiology", bio="Cardiology specialist with 10 years of experience.", available=True, rating=4.7, phone="0734567890"),
-        Doctor(user_id=user_ids[2], first_name="Michael", last_name="Mwangi", specialty="Neurology", bio="Skilled neurologist focused on preventive care.", available=True, rating=4.8, phone="0734567891"),
-        Doctor(user_id=user_ids[3], first_name="Sarah", last_name="Akinyi", specialty="Pediatrics", bio="Compassionate pediatrician with a calm bedside manner.", available=False, rating=4.6, phone="0734567892"),
+        Doctor(user_id=user_ids[1], first_name="Jane", last_name="Smith", specialty="Cardiology", bio="Cardiology specialist with 10 years of experience.", available=True, rating=4.7, phone="0734567890", years_practice=7),
+        Doctor(user_id=user_ids[2], first_name="Michael", last_name="Mwangi", specialty="Neurology", bio="Skilled neurologist focused on preventive care.", available=True, rating=4.8, phone="0734567891", years_practice=5),
+        Doctor(user_id=user_ids[3], first_name="Sarah", last_name="Akinyi", specialty="Pediatrics", bio="Compassionate pediatrician with a calm bedside manner.", available=False, rating=4.6, phone="0734567892", years_practice=10),
     ]
     db.session.add_all(doctors)
     db.session.commit()
