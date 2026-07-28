@@ -1,7 +1,8 @@
-from flask import Flask
-from models import db
-from flask_migrate import Migrate
 from dotenv import load_dotenv
+from flask import Flask
+from flask_migrate import Migrate
+
+from models import db
 
 load_dotenv()
 

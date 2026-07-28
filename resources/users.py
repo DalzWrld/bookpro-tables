@@ -20,17 +20,20 @@ class Users(Resource):
         db.session.add(user)
         db.session.commit()
         
-        log.info("create_user", user_id=user.id)
+        log.info("create_user", id=id)
         return user_schema.dump(user), 201
 
 
 class UserByID(Resource):
-    def get(self, user_id):
-        user = User.query.filter_by(id=user_id).first()
+    def get(self, id):
+        user = User.query.filter_by(id=id).first()
         if not user:
-            return {"message": "User not found"}, 404
+            return {
+                "status": 404,
+                "message": "User not found",
+            }, 404
         
-        log.info("get_user_by_id", user_id=user_id)
+        log.info("get_user_by_id", user_id=id)
         return user_schema.dump(user), 200
 
     def delete(self, id):

@@ -48,6 +48,7 @@ class Doctor(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now)
 
+    user = db.relationship('User', back_populates='doctor')
     appointments = db.relationship('Appointment', back_populates='doctor')
     reviews = db.relationship('Review', back_populates='doctor')
 
@@ -69,7 +70,9 @@ class Patient(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now)
 
+    user = db.relationship('User', back_populates='patient')
     appointments = db.relationship('Appointment', back_populates='patient')
+    reviews = db.relationship('Review', back_populates='patient')
 
     def __repr__(self):
         return f'<Patient {self.id}, {self.first_name} {self.last_name}, {self.dob}, {self.gender}, {self.address}, {self.phone}>'
@@ -110,6 +113,7 @@ class Appointment(db.Model):
     patient = db.relationship('Patient', back_populates='appointments')
     doctor = db.relationship('Doctor', back_populates='appointments')
     hospital = db.relationship('Hospital', back_populates='appointments')
+    reviews = db.relationship('Review', back_populates='appointment')
 
     def __repr__(self):
         return f'<Appointment {self.id}, {self.patient_id}, {self.doctor_id}, {self.hospital_id}, {self.appointment_date}, {self.status}, {self.notes}>'
