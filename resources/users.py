@@ -16,8 +16,24 @@ class Users(Resource):
 
     def post(self):
         try:
-            data = user_schema.load(request.get_json())
-            user = User(**data)
+            data = request.get_json()
+            validated_data = user_schema.load(data)
+
+            if User.query.filter_by(email=validated_data["email"]).first():
+                return make_response(
+                    {"status": 409, "message": "Email address already taken"}, 409
+                )
+            if User.query.filter_by(phone=validated_data["phone"]).first():
+                return make_response(
+                    {"status": 409, "message": "Phone number already taken"}, 409
+                )
+
+            user = User(
+                first_name=validated_data["first_name"],
+                last_name=validated_data["last_name"],
+                email=validated_data["email"],
+                phone=validated_data["phone"],
+            )
 
             db.session.add(user)
             db.session.commit()

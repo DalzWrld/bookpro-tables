@@ -11,6 +11,8 @@ structlog = "*"
 marshmallow = "*"
 flask = "*"
 flask-restful = "*"
+bcrypt = "*"
+flask-bcrypt = "*"
 
 [dev-packages]
 

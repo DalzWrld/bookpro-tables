@@ -1,26 +1,26 @@
 from datetime import date, time
 
-from app import app
+from app import app, bcrypt
 from models import Appointment, Doctor, Hospital, Patient, Review, User, db
 
 with app.app_context():
-    Review.query.delete()
-    Appointment.query.delete()
-    Doctor.query.delete()
-    Patient.query.delete()
-    Hospital.query.delete()
-    User.query.delete()
+    db.session.query(Review).delete()
+    db.session.query(Appointment).delete()
+    db.session.query(Doctor).delete()
+    db.session.query(Patient).delete()
+    db.session.query(Hospital).delete()
+    db.session.query(User).delete()
     db.session.commit()
 
     users = [
-        User(first_name="John", last_name="Doe", role="Admin", email="john.doe@example.com", phone="0712345678"),
-        User(first_name="Jane", last_name="Smith", role="Doctor", email="jane.smith@example.com", phone="0712345679"),
-        User(first_name="Michael", last_name="Mwangi", role="Doctor", email="michael.mwangi@example.com", phone="0712345680"),
-        User(first_name="Sarah", last_name="Akinyi", role="Doctor", email="sarah.akinyi@example.com", phone="0712345681"),
-        User(first_name="Daniel", last_name="Otieno", role="Patient", email="daniel.otieno@example.com", phone="0712345682"),
-        User(first_name="Grace", last_name="Wanjiku", role="Patient", email="grace.wanjiku@example.com", phone="0712345683"),
-        User(first_name="Lilian", last_name="Kariuki", role="Patient", email="lilian.kariuki@example.com", phone="0712345684"),
-        User(first_name="Kevin", last_name="Njoroge", role="Patient", email="kevin.njoroge@example.com", phone="0712345685"),
+        User(first_name="John", last_name="Doe", email="john.doe@example.com", phone="0712345678", password=bcrypt.generate_password_hash("1234567890").decode("utf-8")),
+        User(first_name="Jane", last_name="Smith", email="jane.smith@example.com", phone="0712345679", password=bcrypt.generate_password_hash("1234567890").decode("utf-8")),
+        User(first_name="Michael", last_name="Mwangi", email="michael.mwangi@example.com", phone="0712345680", password=bcrypt.generate_password_hash("1234567890").decode("utf-8")),
+        User(first_name="Sarah", last_name="Akinyi", email="sarah.akinyi@example.com", phone="0712345681", password=bcrypt.generate_password_hash("1234567890").decode("utf-8")),
+        User(first_name="Daniel", last_name="Otieno", email="daniel.otieno@example.com", phone="0712345682", password=bcrypt.generate_password_hash("1234567890").decode("utf-8")),
+        User(first_name="Grace", last_name="Wanjiku", email="grace.wanjiku@example.com", phone="0712345683", password=bcrypt.generate_password_hash("1234567890").decode("utf-8")),
+        User(first_name="Lilian", last_name="Kariuki", email="lilian.kariuki@example.com", phone="0712345684", password=bcrypt.generate_password_hash("1234567890").decode("utf-8")),
+        User(first_name="Kevin", last_name="Njoroge", email="kevin.njoroge@example.com", phone="0712345685", password=bcrypt.generate_password_hash("1234567890").decode("utf-8")),
     ]
     db.session.add_all(users)
     db.session.commit()

@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from flask_bcrypt import check_password_hash, generate_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 
@@ -21,17 +22,23 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(20), nullable=False)
-    role = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     phone = db.Column(db.String, nullable=False, unique=True)
+    password = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now)
 
     doctor = db.relationship('Doctor', uselist=False, back_populates='user')
     patient = db.relationship('Patient', uselist=False, back_populates='user')
 
+    def set_password(self, user_pass):
+        self.password = generate_password_hash(password=user_pass).decode("utf-8")
+
+    def check_password(self, user_pass):
+        return check_password_hash(self.password, user_pass)
+
     def __repr__(self):
-        return f'<User {self.id}, {self.first_name} {self.last_name}, {self.role}, {self.email}, {self.phone}>'
+        return f'<User {self.id}, {self.first_name} {self.last_name}, {self.email}, {self.phone}>'
 
 class Doctor(db.Model):
     __tablename__ = "doctors"
