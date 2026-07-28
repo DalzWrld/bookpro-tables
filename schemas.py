@@ -197,7 +197,7 @@ class RegisterSchema(Schema):
     last_name = fields.Str(required=True)
     email_address = fields.Email(required=True)
     phone = fields.Str(required=True)
-    password = fields.Str(load_only=True, validate=validate.Length(min=5))
+    password = fields.Str(load_only=True, validate=validate.Length(min=8))
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
 
