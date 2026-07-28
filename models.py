@@ -2,8 +2,8 @@ from datetime import datetime
 
 from flask_bcrypt import check_password_hash, generate_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import CheckConstraint, MetaData
 from marshmallow import validates
+from sqlalchemy import CheckConstraint, MetaData
 
 naming_convention = {
     "ix": 'ix_%(column_0_label)s',
