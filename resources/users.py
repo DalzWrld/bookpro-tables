@@ -37,7 +37,6 @@ class Users(Resource):
 
         except ValueError as ve:
             db.session.rollback()
-
             log.error("value_error", error=str(ve))
 
             response = {
@@ -52,14 +51,53 @@ class Users(Resource):
 class UserByID(Resource):
     def get(self, id):
         user = User.query.filter_by(id=id).first()
-        if not user:
-            return {
-                "status": 404,
-                "message": "User not found",
-            }, 404
+
+        if user:
+            return make_response(user_schema.dump(user), 200)
+        else:
+            response = {
+                "status": 404, 
+                "message": "User not found"
+            }
+
+            return make_response(response, 404)
+
+
+    def put(self, id):
+        user = User.query.get_or_404(id)
+
+        try:
+            data = user_schema.load(request.get_json(), partial=True)
+
+            for key, value in data.items():
+                setattr(user, key, value)
+
+            db.session.commit()
+
+            return make_response(user_schema.dump(user), 200)
+
+        except ValidationError as err:
+            log.error("validation_error", errors=err.messages)
         
-        log.info("get_user_by_id", user_id=id)
-        return user_schema.dump(user), 200
+            response = {
+                "status": 400,
+                "message": "Validation error(s) occurred",
+                "errors": {**err.messages},
+            }
+        
+            return make_response(response, 400)
+        
+        except ValueError as ve:
+            db.session.rollback()
+            log.error("value_error", error=str(ve))
+        
+            response = {
+                "status": 400,
+                "message": "Wrong value(s) entered.",
+            }
+        
+            return make_response(response, 400)
+
 
     def delete(self, id):
         user = User.query.filter_by(id=id).first()
