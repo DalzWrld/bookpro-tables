@@ -4,15 +4,15 @@ from marshmallow import ValidationError
 
 from extensions import log
 from models import Hospital, db
-from schemas import hospital_schema, hospitals_schema
+from schemas import hospital_schema, hospitals_schema, hospitals_list_schema
 
 
 class Hospitals(Resource):
     def get(self):
         hospitals = Hospital.query.all()
-        log.info("get_all_hospitals", request_data=hospitals_schema.dump(hospitals))
+        log.info("get_all_hospitals", request_data=hospitals_list_schema.dump(hospitals))
 
-        return make_response(hospitals_schema.dump(hospitals), 200)
+        return make_response(hospitals_list_schema.dump(hospitals), 200)
 
     def post(self):
         try:

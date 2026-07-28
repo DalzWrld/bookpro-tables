@@ -4,15 +4,15 @@ from marshmallow import ValidationError
 
 from extensions import log
 from models import User, db
-from schemas import user_schema, users_schema
+from schemas import user_schema, users_schema, users_list_schema
 
 
 class Users(Resource):
     def get(self):
         users = User.query.all()
-        log.info("get_all_users", request_data=users_schema.dump(users))
+        log.info("get_all_users", request_data=users_list_schema.dump(users))
 
-        return make_response(users_schema.dump(users), 200)
+        return make_response(users_list_schema.dump(users), 200)
 
     def post(self):
         try:

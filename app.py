@@ -5,12 +5,12 @@ from flask_migrate import Migrate
 from flask_restful import Api
 
 from models import db
-from resources.users import Users, UserByID
-from resources.doctors import Doctors, DoctorByID
-from resources.patients import Patients, PatientByID
-from resources.hospitals import Hospitals, HospitalByID
-from resources.appointments import Appointments, AppointmentByID
-from resources.reviews import Reviews, ReviewByID
+from resources.appointments import AppointmentByID, Appointments
+from resources.doctors import DoctorByID, Doctors
+from resources.hospitals import HospitalByID, Hospitals
+from resources.patients import PatientByID, Patients
+from resources.reviews import ReviewByID, Reviews
+from resources.users import UserByID, Users
 
 load_dotenv()
 

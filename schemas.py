@@ -16,6 +16,17 @@ class UserSchema(Schema):
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 
+class UserListSchema(Schema):
+    id = fields.Int(dump_only=True)
+    first_name = fields.Str(dump_only=True)
+    last_name = fields.Str(dump_only=True)
+    email = fields.Email(dump_only=True)
+    phone = fields.Str(dump_only=True)
+    created_at = fields.DateTime(dump_only=True)
+    updated_at = fields.DateTime(dump_only=True)
+
+users_list_schema = UserListSchema(many=True)
+
 class DoctorSchema(Schema):
     id = fields.Int(dump_only=True)
     user_id = fields.Int(required=True)
@@ -36,6 +47,22 @@ class DoctorSchema(Schema):
 doctor_schema = DoctorSchema()
 doctors_schema = DoctorSchema(many=True)
 
+class DoctorListSchema(Schema):
+    id = fields.Int(dump_only=True)
+    user_id = fields.Int(dump_only=True)
+    first_name = fields.Str(dump_only=True)
+    last_name = fields.Str(dump_only=True)
+    specialty = fields.Str(dump_only=True)
+    bio = fields.Str(dump_only=True)
+    available = fields.Bool(dump_only=True)
+    phone = fields.Str(dump_only=True)
+    years_practice = fields.Int(dump_only=True)
+    rating = fields.Float(dump_only=True)
+    created_at = fields.DateTime(dump_only=True)
+    updated_at = fields.DateTime(dump_only=True)
+
+doctors_list_schema = DoctorListSchema(many=True)
+
 class PatientSchema(Schema):
     id = fields.Int(dump_only=True)
     user_id = fields.Int(required=True)
@@ -54,6 +81,20 @@ class PatientSchema(Schema):
 patient_schema = PatientSchema()
 patients_schema = PatientSchema(many=True)
 
+class PatientListSchema(Schema):
+    id = fields.Int(dump_only=True)
+    user_id = fields.Int(dump_only=True)
+    first_name = fields.Str(dump_only=True)
+    last_name = fields.Str(dump_only=True)
+    dob = fields.Date(dump_only=True)
+    gender = fields.Str(dump_only=True)
+    address = fields.Str(dump_only=True)
+    phone = fields.Str(dump_only=True)
+    created_at = fields.DateTime(dump_only=True)
+    updated_at = fields.DateTime(dump_only=True)
+
+patients_list_schema = PatientListSchema(many=True)
+
 class HospitalSchema(Schema):
     id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
@@ -68,6 +109,18 @@ class HospitalSchema(Schema):
 
 hospital_schema = HospitalSchema()
 hospitals_schema = HospitalSchema(many=True)
+
+class HospitalListSchema(Schema):
+    id = fields.Int(dump_only=True)
+    name = fields.Str(dump_only=True)
+    address = fields.Str(dump_only=True)
+    phone = fields.Str(dump_only=True)
+    email = fields.Email(dump_only=True)
+    website = fields.Str(dump_only=True)
+    created_at = fields.DateTime(dump_only=True)
+    updated_at = fields.DateTime(dump_only=True)
+
+hospitals_list_schema = HospitalListSchema(many=True)
 
 class AppointmentSchema(Schema):
     id = fields.Int(dump_only=True)
@@ -88,6 +141,20 @@ class AppointmentSchema(Schema):
 appointment_schema = AppointmentSchema()
 appointments_schema = AppointmentSchema(many=True)
 
+class AppointmentListSchema(Schema):
+    id = fields.Int(dump_only=True)
+    patient_id = fields.Int(dump_only=True)
+    doctor_id = fields.Int(dump_only=True)
+    hospital_id = fields.Int(dump_only=True)
+    appointment_date = fields.DateTime(dump_only=True)
+    appointment_time = fields.Time(dump_only=True)
+    status = fields.Str(dump_only=True)
+    notes = fields.Str(dump_only=True)
+    created_at = fields.DateTime(dump_only=True)
+    updated_at = fields.DateTime(dump_only=True)
+
+appointments_list_schema = AppointmentListSchema(many=True)
+
 class ReviewSchema(Schema):
     id = fields.Int(dump_only=True)
     appointment_id = fields.Int(required=True)
@@ -103,3 +170,15 @@ class ReviewSchema(Schema):
 
 review_schema = ReviewSchema()
 reviews_schema = ReviewSchema(many=True)
+
+class ReviewListSchema(Schema):
+    id = fields.Int(dump_only=True)
+    appointment_id = fields.Int(dump_only=True)
+    patient_id = fields.Int(dump_only=True)
+    doctor_id = fields.Int(dump_only=True)
+    rating = fields.Float(dump_only=True)
+    comment = fields.Str(dump_only=True)
+    created_at = fields.DateTime(dump_only=True)
+    updated_at = fields.DateTime(dump_only=True)
+
+reviews_list_schema = ReviewListSchema(many=True)

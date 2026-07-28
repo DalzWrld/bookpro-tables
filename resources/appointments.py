@@ -4,15 +4,15 @@ from marshmallow import ValidationError
 
 from extensions import log
 from models import Appointment, db
-from schemas import appointment_schema, appointments_schema
+from schemas import appointment_schema, appointments_schema, appointments_list_schema
 
 
 class Appointments(Resource):
     def get(self):
         appointments = Appointment.query.all()
-        log.info("get_all_appointments", request_data=appointments_schema.dump(appointments))
+        log.info("get_all_appointments", request_data=appointments_list_schema.dump(appointments))
 
-        return make_response(appointments_schema.dump(appointments), 200)
+        return make_response(appointments_list_schema.dump(appointments), 200)
 
     def post(self):
         try:

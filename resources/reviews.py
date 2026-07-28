@@ -4,15 +4,15 @@ from marshmallow import ValidationError
 
 from extensions import log
 from models import Review, db
-from schemas import review_schema, reviews_schema
+from schemas import review_schema, reviews_schema, reviews_list_schema
 
 
 class Reviews(Resource):
     def get(self):
         reviews = Review.query.all()
-        log.info("get_all_reviews", request_data=reviews_schema.dump(reviews))
+        log.info("get_all_reviews", request_data=reviews_list_schema.dump(reviews))
 
-        return make_response(reviews_schema.dump(reviews), 200)
+        return make_response(reviews_list_schema.dump(reviews), 200)
 
     def post(self):
         try:
